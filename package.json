@@ -1,0 +1,29 @@
+{
+  "name": "inpbitec-practice",
+  "version": "1.0.0",
+  "description": "web application ",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexZimin/Inobitec-practice.git"
+  },
+  "author": "Alex Babytsev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexZimin/Inobitec-practice/issues"
+  },
+  "homepage": "https://github.com/AlexZimin/Inobitec-practice#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.6.0",
+    "pg-pool": "^3.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  }
+}
