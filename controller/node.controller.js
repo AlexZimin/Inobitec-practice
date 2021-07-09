@@ -1,33 +1,50 @@
-import pool from "../db_config.js";
+import node from "../models/node.js";
 
 class NodeController{
     async createNode(req, res){
-        const {name, IP, port, parent_id} = req.body;
-        const newNode = await pool.query(
-            'INSERT INTO node (name, IP, port, parent_id) VALUES ($1,$2,$3,$4) RETURNING *', 
-            [name, IP, port, parent_id]);
-        res.json(newNode.rows[0]);
+        try {
+            const {name, ip, port, parent_id} = req.body;
+            const newNode = await node.create({name, ip, port, parent_id});
+            res.json(newNode);
+        } catch (error) {
+            res.json(error)
+        }
     }   
     async getNodes(req, res){
-        const nodes = await pool.query('SELECT * FROM node')
-        res.json(nodes.rows)
+        try {
+            const nodes = await node.findAll();
+            res.json(nodes)
+        } catch (error) {
+            res.json(error)
+        }
     }
     async getNode(req, res){
-        const id = req.params.id;
-        const node = await pool.query('SELECT * FROM node WHERE id = $1',[id]);
-        res.json(node.rows[0])
+        try {
+            const id = req.params.id;
+            const oneNode = await node.findOne({where: {id:id}})
+            res.json(oneNode)
+        } catch (error) {
+            res.json(error)
+        }
     }
     async updateNode(req, res){
-        const {id, name, IP, port, parent_id} = req.body;
-        const node = await pool.query(
-            'UPDATE node set name = $2, IP = $3, port = $4, parent_id = $5 WHERE id = $1 RETURNING *',
-            [id, name, IP, port, parent_id]);
-        res.json(node.rows[0])
+        try {
+            const {id, name, ip, port, parent_id} = req.body;
+            const data = {name, ip, port, parent_id}
+            await node.update(data,{where: {id}});
+            await res.json(data);
+        } catch (error) {
+            res.json(error)
+        }
     }
     async deleteNode(req, res){
-        const id = req.params.id;
-        const node = await pool.query('DELETE FROM node WHERE id = $1',[id]);
-        res.json(node.rows[0])
+        try {
+            const id = req.params.id;
+            await node.destroy({where: {id}});
+            res.sendStatus(200);
+        } catch (error) {
+            res.json(error)
+        }
     }
 }
 
