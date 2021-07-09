@@ -1,5 +1,5 @@
 # Inobitec-practice
-Web application for practice workin Inobitec.
+Web application for practice work in Inobitec.
 On this page will be some information about project.
 
 
