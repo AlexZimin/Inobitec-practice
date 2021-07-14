@@ -28,3 +28,7 @@ INSERT INTO node (name, IP, port, parent_id) VALUES
 INSERT INTO node (name, IP, port, parent_id) VALUES
 ('node_3','192.168.10.13',8080,1);
 ```
+## Start server
+In the project directory, you can run:
+
+### `npm start` or `npm run dev` (start serverin dev mod)

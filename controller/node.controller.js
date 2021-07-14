@@ -18,6 +18,14 @@ class NodeController{
             res.json(error)
         }
     }
+    async getRootNode(req, res){
+        try {
+            const rootNode = await node.findOne({where: {parent_id: null}})
+            res.json(rootNode)
+        } catch (error) {
+            res.json(error)
+        }
+    }
     async getNode(req, res){
         try {
             const id = req.params.id;
@@ -27,11 +35,20 @@ class NodeController{
             res.json(error)
         }
     }
+    async getChildNode(req, res){
+        try {
+            const id = req.params.id;
+            const oneNode = await node.findAll({where: {parent_id:id}})
+            res.json(oneNode)
+        } catch (error) {
+            res.json(error)
+        }
+    }
     async updateNode(req, res){
         try {
             const {id, name, ip, port, parent_id} = req.body;
             const data = {name, ip, port, parent_id}
-            await node.update(data,{where: {id}});
+            await node.update(data, {where: {id}});
             await res.json(data);
         } catch (error) {
             res.json(error)
